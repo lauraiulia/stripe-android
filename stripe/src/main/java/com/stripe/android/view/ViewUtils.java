@@ -4,11 +4,9 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.support.annotation.AttrRes;
 import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
-import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -27,61 +25,29 @@ class ViewUtils {
 
     @NonNull
     static TypedValue getThemeAccentColor(@NonNull Context context) {
-        @IdRes final int colorAttr;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            colorAttr = android.R.attr.colorAccent;
-        } else {
-            //Get colorAccent defined for AppCompat
-            colorAttr = context
-                    .getResources()
-                    .getIdentifier("colorAccent", "attr", context.getPackageName());
-        }
         final TypedValue outValue = new TypedValue();
-        context.getTheme().resolveAttribute(colorAttr, outValue, true);
+        context.getTheme().resolveAttribute(android.R.attr.colorAccent, outValue, true);
         return outValue;
     }
 
     @NonNull
     static TypedValue getThemeColorControlNormal(@NonNull Context context) {
-        @IdRes final int colorAttr;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            colorAttr = android.R.attr.colorControlNormal;
-        } else {
-            //Get colorControlNormal defined for AppCompat
-            colorAttr = context
-                    .getResources()
-                    .getIdentifier("colorControlNormal", "attr", context.getPackageName());
-        }
-        TypedValue outValue = new TypedValue();
-        context.getTheme().resolveAttribute(colorAttr, outValue, true);
+        final TypedValue outValue = new TypedValue();
+        context.getTheme().resolveAttribute(android.R.attr.colorControlNormal, outValue, true);
         return outValue;
     }
 
     @NonNull
     static TypedValue getThemeTextColorSecondary(@NonNull Context context) {
-        @IdRes final int colorAttr;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            colorAttr = android.R.attr.textColorSecondary;
-        } else {
-            //Get textColorSecondary defined for AppCompat
-            colorAttr = android.R.color.secondary_text_light;
-        }
-        TypedValue outValue = new TypedValue();
-        context.getTheme().resolveAttribute(colorAttr, outValue, true);
+        final TypedValue outValue = new TypedValue();
+        context.getTheme().resolveAttribute(android.R.attr.textColorSecondary, outValue, true);
         return outValue;
     }
 
     @NonNull
     static TypedValue getThemeTextColorPrimary(@NonNull Context context) {
-        @IdRes final int colorAttr;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            colorAttr = android.R.attr.textColorPrimary;
-        } else {
-            //Get textColorPrimary defined for AppCompat
-            colorAttr = android.R.color.primary_text_light;
-        }
-        TypedValue outValue = new TypedValue();
-        context.getTheme().resolveAttribute(colorAttr, outValue, true);
+        final TypedValue outValue = new TypedValue();
+        context.getTheme().resolveAttribute(android.R.attr.textColorPrimary, outValue, true);
         return outValue;
     }
 
@@ -93,7 +59,7 @@ class ViewUtils {
             @DrawableRes int iconResourceId) {
         final TypedValue typedValue = new TypedValue();
         theme.resolveAttribute(attributeResource, typedValue, true);
-        @ColorInt int color = typedValue.data;
+        @ColorInt final int color = typedValue.data;
         final Drawable icon = ContextCompat.getDrawable(context, iconResourceId);
         final Drawable compatIcon = DrawableCompat.wrap(icon);
         DrawableCompat.setTint(compatIcon.mutate(), color);
@@ -151,18 +117,21 @@ class ViewUtils {
      * numbers, so that the groups can be easily displayed if the user is typing them in.
      * Note that this does not verify that the card number is valid, or even that it is a number.
      *
-     * @param spacelessCardNumber the raw card number, without spaces
+     * @param spacelessCardNumberParam the raw card number, without spaces
      * @param brand the {@link Card.CardBrand} to use as a separating scheme
      * @return an array of strings with the number groups, in order. If the number is not complete,
      * some of the array entries may be {@code null}.
      */
     @NonNull
-    static String[] separateCardNumberGroups(@NonNull String spacelessCardNumber,
-                                             @NonNull @Card.CardBrand String brand) {
-        if (spacelessCardNumber.length() > 16) {
-            spacelessCardNumber = spacelessCardNumber.substring(0, 16);
+    static String[] separateCardNumberGroups(@NonNull final String spacelessCardNumberParam,
+                                             @NonNull @Card.CardBrand final String brand) {
+        final String spacelessCardNumber;
+        if (spacelessCardNumberParam.length() > 16) {
+            spacelessCardNumber = spacelessCardNumberParam.substring(0, 16);
+        } else {
+            spacelessCardNumber = spacelessCardNumberParam;
         }
-        String[] numberGroups;
+        final String[] numberGroups;
         if (brand.equals(Card.AMERICAN_EXPRESS)) {
             numberGroups = new String[3];
 
@@ -203,7 +172,7 @@ class ViewUtils {
         return numberGroups;
     }
 
-    static int getPxFromDp(Context context, int dp) {
+    static int getPxFromDp(@NonNull Context context, int dp) {
         return (int) (dp * context.getResources().getDisplayMetrics().density);
     }
 

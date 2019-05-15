@@ -20,7 +20,8 @@
             android:layout_height="0dp"
             android:scaleType="fitCenter"
             android:duplicateParentState="true"
-            android:src="@drawable/pay_with_google_button_content"/>
+            android:src="@drawable/pay_with_google_button_content"
+            android:contentDescription="@null" />
     </LinearLayout>
 
     <ImageView
@@ -28,5 +29,6 @@
         android:layout_height="match_parent"
         android:scaleType="fitXY"
         android:duplicateParentState="true"
-        android:src="@drawable/pay_with_google_button_overlay"/>
+        android:src="@drawable/pay_with_google_button_overlay"
+        android:contentDescription="@null" />
 </RelativeLayout>

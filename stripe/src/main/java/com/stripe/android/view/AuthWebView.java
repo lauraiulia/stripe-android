@@ -1,13 +1,10 @@
 package com.stripe.android.view;
 
 import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
@@ -97,7 +94,6 @@ class AuthWebView extends WebView {
             return super.shouldOverrideUrlLoading(view, urlString);
         }
 
-        @TargetApi(Build.VERSION_CODES.LOLLIPOP)
         @Override
         public boolean shouldOverrideUrlLoading(@NonNull WebView view,
                                                 @NonNull WebResourceRequest request) {

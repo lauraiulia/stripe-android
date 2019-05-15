@@ -1,10 +1,10 @@
 package com.stripe.example;
 
-import android.support.multidex.MultiDexApplication;
+import android.app.Application;
 
 import com.squareup.leakcanary.LeakCanary;
 
-public class ExampleApplication extends MultiDexApplication {
+public class ExampleApplication extends Application {
 
     @Override
     public void onCreate() {
